@@ -1,0 +1,2 @@
+export type DeploymentStatus = 'SUCCESS' | 'FAILED' | 'RUNNING' | 'ROLLED_BACK'
+export interface Deployment {id:number;serviceName:string;environment:string;status:DeploymentStatus;version:string;imageTag:string;gitCommit:string;previousVersion:string;triggeredBy:string;startedAt:string;finishedAt:string|null;durationSeconds:number|null;pipelineUrl:string;changeSummary:string;errorMessage:string|null;rollbackAvailable:number;createdAt:string}
