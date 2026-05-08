@@ -1,0 +1,1 @@
+export default function StatusBadge({status}:{status:string}){const colors:any={SUCCESS:'bg-green-100 text-green-700',FAILED:'bg-red-100 text-red-700',RUNNING:'bg-blue-100 text-blue-700',ROLLED_BACK:'bg-yellow-100 text-yellow-700'};return <span className={`px-2 py-1 rounded text-xs font-semibold ${colors[status]||'bg-slate-100'}`}>{status}</span>}
