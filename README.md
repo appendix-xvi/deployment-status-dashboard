@@ -1,53 +1,76 @@
 # deployment-status-dashboard
 
-Lightweight internal dashboard for DevOps/SRE visibility of deployments across environments.
+Work-in-progress internal dashboard concept for DevOps/SRE deployment visibility across environments.
 
-## Stack
-- Frontend: React + TypeScript + Vite + Tailwind CSS
-- Backend: Node.js + Express + TypeScript
-- Database: SQLite
-- Runtime: Docker Compose
+This repository is not yet a completed application. It should not be presented as a running dashboard until the frontend, backend, database schema, and Docker Compose runtime are committed.
 
-## Features
-- Summary cards (today, successful, failed, running, last prod)
+## Intended stack
+
+```text
+Frontend: React + TypeScript + Vite + Tailwind CSS
+Backend: Node.js + Express + TypeScript
+Database: SQLite
+Runtime: Docker Compose
+```
+
+## Intended features
+
+- Summary cards for deployment health
 - Deployment table with status badges and pipeline links
-- Filters: environment, service name, status, search
-- Deployment detail with timeline, version diff, pipeline URL, failure message
-- Mock data generation endpoint
+- Filters by environment, service name, status, and search text
+- Deployment detail page with timeline and failure context
+- Mock data generation for local demo usage
 
-## API
-- `GET /health`
-- `GET /api/deployments`
-- `GET /api/deployments/:id`
-- `GET /api/summary`
-- `POST /api/deployments/mock-generate`
+## Current repository status
 
-## Run locally
-```bash
-docker compose up --build
-```
-Open frontend at http://localhost:3000.
-
-## Local development without Docker
-### Backend
-```bash
-cd backend
-npm install
-npm run seed
-npm run dev
-```
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
+```text
+Status: work in progress
+Ready to showcase: no
 ```
 
-## Environment list supported
-`dev`, `dev01`, `alpha`, `staging`, `staging01`, `pt`, `preprod`, `prod`.
+The README must stay aligned with committed files. Do not claim the app can run locally until the runtime files exist.
 
-## Mock seed
-Backend auto-seeds at startup when the database is empty. You can regenerate:
-```bash
-curl -X POST http://localhost:4000/api/deployments/mock-generate
+## Required files before showcase
+
+```text
+frontend/package.json
+frontend/src/
+backend/package.json
+backend/src/
+backend/db/
+docker-compose.yml
+README.md
 ```
+
+## Intended API design
+
+```text
+GET  /health
+GET  /api/deployments
+GET  /api/deployments/:id
+GET  /api/summary
+POST /api/deployments/mock-generate
+```
+
+These endpoints are planned and should be implemented before this project is described as runnable.
+
+## Target environment list
+
+```text
+dev, dev01, alpha, staging, staging01, pt, preprod, prod
+```
+
+## Showcase readiness checklist
+
+Before publishing this as a finished portfolio project, verify:
+
+- `docker compose up --build` works from a clean clone.
+- Frontend loads without manual code edits.
+- Backend `/health` returns success.
+- Mock deployment data can be generated.
+- Deployment list and summary cards render correctly.
+- README commands match the committed implementation.
+
+## License
+
+MIT
