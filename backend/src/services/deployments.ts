@@ -1,6 +1,13 @@
 import db from '../db/client'
 
-export function listDeployments(query: any) {
+type DeploymentListQuery = {
+  environment?: string
+  serviceName?: string
+  status?: string
+  search?: string
+}
+
+export function listDeployments(query: DeploymentListQuery) {
   const clauses: string[] = []
   const params: any = {}
   if (query.environment) { clauses.push('environment=@environment'); params.environment = query.environment }
@@ -15,10 +22,10 @@ export const getDeployment = (id: string) => db.prepare('SELECT * FROM deploymen
 
 export function summary() {
   const today = new Date().toISOString().slice(0,10)
-  const totalToday = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE substr(startedAt,1,10)=?").get(today) as any
-  const success = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE status='SUCCESS'").get() as any
-  const failed = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE status='FAILED'").get() as any
-  const running = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE status='RUNNING'").get() as any
+  const totalToday = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE substr(startedAt,1,10)=?").get(today) as { c: number }
+  const success = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE status='SUCCESS'").get() as { c: number }
+  const failed = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE status='FAILED'").get() as { c: number }
+  const running = db.prepare("SELECT COUNT(*) as c FROM deployments WHERE status='RUNNING'").get() as { c: number }
   const lastProd = db.prepare("SELECT * FROM deployments WHERE environment='prod' ORDER BY startedAt DESC LIMIT 1").get() as any
   return { totalDeploymentsToday: totalToday.c, successfulDeployments: success.c, failedDeployments: failed.c, runningDeployments: running.c, lastProductionDeployment: lastProd }
 }
